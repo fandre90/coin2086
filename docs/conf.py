@@ -29,6 +29,7 @@ author = 'Fabien André'
 # ones.
 extensions = [
     'sphinx.ext.napoleon',
+    'sphinx.ext.autodoc',
     'sphinx.ext.autosectionlabel',
     'sphinxcontrib.images'
 ]
