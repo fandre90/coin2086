@@ -10,6 +10,8 @@ the information you need to report on [Formulaire n°2086](https://www.impots.go
 
 It's that easy !
 
+[Documentation on Read The Docs](https://coin2086.readthedocs.io)
+
 ## Installation ##
 
 ```sh
