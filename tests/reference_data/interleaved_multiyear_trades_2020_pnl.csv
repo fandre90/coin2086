@@ -1,0 +1,4 @@
+,Description,Date de la cession [datetime],Valeur globale portefeuille [portfolio_value],Prix de cession [amount],Frais de cession [fee],Prix de cession net des frais [amount_net],Prix total d'acquistion [portfolio_purchase_price],Fractions de capital initial [purchase_price_fraction_sum],Prix total d'acquistion net [portfolio_purchase_price_net],Plus-values et moins-values [pnl]
+4,SELL 1.00 BTC,2020-09-05 16:50:00,23310.95,8722.7,43.6135,8679.086500000001,27780.330599999998,3592.56345,24187.767149999996,-371.7087923113377
+5,SELL 5.00 ETH,2020-09-08 12:40:00,14189.210000000001,1425.35,7.1267499999999995,1418.22325,27780.330599999998,12643.358742311339,15136.971857688659,-102.33235791309221
+6,SELL 0.25 BTC,2020-12-20 09:10:00,28835.850000000002,4805.975,24.029875000000004,4781.945125,27780.330599999998,14163.914350224431,13616.416249775566,2512.542416704073

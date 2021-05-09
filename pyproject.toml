@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "coin2086"
+version = "0.1.0"
+description = "French Crypto Tax Return for Humans"
+license = "MIT"
+readme = "README.md"
+authors = ["Fabien André <fabien.andre@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+pandas = "^1.2.4"
+requests = "^2.25.1"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+ipykernel = "^5.5.3"
+Sphinx = "^3.5.4"
+sphinx-rtd-theme = "^0.5.2"
+dataframe-image = "^0.1.1"
+sphinxcontrib-images = "^0.9.3"
+black = "^21.5b0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

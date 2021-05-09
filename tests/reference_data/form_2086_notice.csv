@@ -1,0 +1,4 @@
+,datetime,trade_side,cryptocurrency,quantity,price,base_currency,amount,fee
+0,2020-01-01,BUY,BTC,1.0,1000,EUR,1000.0,0
+1,2020-03-01,SELL,BTC,0.375,1200,EUR,450.0,0
+2,2020-08-01,SELL,BTC,0.625,2080,EUR,1300.0,0
