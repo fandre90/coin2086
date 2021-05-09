@@ -1,5 +1,3 @@
-:orphan:
-
 A dictionary representing your portfolio of
 crypto-currencies as it was before the first trade in the ``trades``
 DataFrame (see ``trades`` argument). The keys of the ``initial_portfolio``

@@ -304,10 +304,10 @@ def compute_taxable_pnls(
     .. include:: ../../docs/includes/input_columns.rst
 
     Args:
-        trades (pandas.DataFrame): ..include:: ../../docs/includes/arg_trades.rst
+        trades (pandas.DataFrame): .. include:: ../../docs/includes/arg_trades.rst
         year (int): The year to report your trades for. Usually, this is the
             last year.
-        initial_portfolio (dict): ..include:: ../../docs/includes/arg_initial_portfolio.rst
+        initial_portfolio (dict): .. include:: ../../docs/includes/arg_initial_portfolio.rst
         initial_purchase_price (float): The purchase price of the initial_portfolio
 
     Returns:
