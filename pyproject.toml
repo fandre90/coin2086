@@ -7,7 +7,13 @@ license = "MIT"
 readme = "README.md"
 homepage = "https://github.com/fandre90/coin2086"
 repository = "https://github.com/fandre90/coin2086"
-
+keywords = ["cryptocurrency", "accounting", "tax"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Operating System :: OS Independent",
+    "Topic :: Office/Business :: Financial",
+    "Topic :: Software Development :: Libraries"
+]
 
 [tool.poetry.dependencies]
 python = "^3.9"
