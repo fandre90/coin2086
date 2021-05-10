@@ -1,12 +1,13 @@
 [tool.poetry]
 name = "coin2086"
 version = "0.1.1"
-description = "French Crypto Tax Return for Humans"
-authors = ["Fabien André <fabien.andre@gmail.com>"]
+description = "French Crypto Taxes Made Easy"
+authors = ["Fabien André <fabien.andre90@gmail.com>"]
 license = "MIT"
 readme = "README.md"
 homepage = "https://github.com/fandre90/coin2086"
 repository = "https://github.com/fandre90/coin2086"
+documentation = "https://coin2086.readthedocs.io/"
 keywords = ["cryptocurrency", "accounting", "tax"]
 classifiers = [
     "Development Status :: 4 - Beta",
