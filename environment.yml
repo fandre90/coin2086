@@ -1,0 +1,11 @@
+# Environment specification for Binder
+name: binder-environment
+channels:
+  - conda-forge
+dependencies:
+  - python
+  - pip
+  - pip:
+    - coin2086
+    - requests
+    - pandas
