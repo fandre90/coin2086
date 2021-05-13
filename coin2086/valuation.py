@@ -5,80 +5,11 @@ import datetime as dt
 import requests
 import pandas as pd
 
+from . import pricedownload
 from .validation import check_trades
 
 
 logger = logging.getLogger(__name__)
-
-
-def is_datetime_rounded(dtime, time_interval):
-    rounded_dtime = pd.to_datetime(dtime).round(time_interval).to_pydatetime()
-    return rounded_dtime
-
-
-class CachedPriceDownloader:
-    """Base class for crypto-currency price downloader classes.
-    This class maintains a cache so that child classes can avoid
-    hitting exchange or data providers  APIs too often
-    """
-
-    def __init__(self, time_interval):
-        self.cache = collections.defaultdict(dict)
-        self.time_interval = time_interval
-
-    def _add_price_to_cache(self, crypto, dtime, price):
-        if not is_datetime_rounded(dtime, self.time_interval):
-            raise ValueError(
-                f"Datetime {dtime} is not rounded to {self.time_interval}. "
-                f"Could not add {crypto} @ {price} at {dtime} to price cache"
-            )
-        crypto_cache = self.cache[crypto]
-        crypto_cache[dtime] = price
-
-    def find_price_in_cache(self, crypto, dtime):
-        if not is_datetime_rounded(dtime, self.time_interval):
-            raise ValueError(f"Datetime {dtime} is not round to {self.time_interval}.")
-        crypto_cache = self.cache[crypto]
-        return crypto_cache.get(dtime)
-
-
-def bitstamp_download_minute_bins(crypto, dtime, limit=100):
-    OHLC_URL = "https://www.bitstamp.net/api/v2/ohlc/{pair}/".format(
-        pair=crypto.lower() + "eur"
-    )
-    parameters = {"start": int(dtime.timestamp()), "step": 60, "limit": limit}
-    logger.info(f"Downloading prices from {OHLC_URL}, parameters: {parameters}")
-    resp = requests.get(OHLC_URL, params=parameters)
-    return resp.json()
-
-
-class BitstampMinutePriceDownloader(CachedPriceDownloader):
-    def __init__(self):
-        super().__init__("min")
-
-    def download_price(self, crypto, dtime):
-        if not is_datetime_rounded(dtime, self.time_interval):
-            raise ValueError(f"Datetime {dtime} is not round to {self.time_interval}.")
-        cached_price = self.find_price_in_cache(crypto, dtime)
-        if cached_price is None:
-            self._download_price_add_to_cache(crypto, dtime)
-        cached_price = self.find_price_in_cache(crypto, dtime)
-        if cached_price is None:
-            raise RuntimeError(f"Could not download price for {crypto} at {dtime}")
-        return cached_price
-
-    def _download_price_add_to_cache(self, crypto, dtime):
-        resp = bitstamp_download_minute_bins(crypto, dtime)
-        assert resp["data"]["pair"] == crypto.upper() + "/EUR"
-        bins = resp["data"]["ohlc"]
-        for b in bins:
-            dtime = dt.datetime.fromtimestamp(int(b["timestamp"]))
-            if not is_datetime_rounded(dtime, self.time_interval):
-                raise ValueError(
-                    f"Bitstamp API returned a bin time that "
-                    "is not rounded to {self.time_interval}: {dtime}"
-                )
-            self._add_price_to_cache(crypto, dtime, float(b["close"]))
 
 
 def valuate_portfolio(trades, initial_portfolio=None):
@@ -190,18 +121,15 @@ def add_sell_prices(portfolio, sales):
 
 
 def add_public_prices(portfolio, sales):
-    bitstamp_api = BitstampMinutePriceDownloader()
+    pricedown = pricedownload.reference_price_downloader()
     dated_portfolio = portfolio["quantity"].join(sales["datetime"])
-    dated_portfolio["datetime"] = dated_portfolio["datetime"].round("min")
     price_records = []
     for rec in dated_portfolio.to_dict(orient="records"):
         dtime = rec["datetime"]
         del rec["datetime"]
         price_rec = {}
         for crypto in rec.keys():
-            price_rec[crypto] = bitstamp_api.download_price(
-                crypto, dtime.to_pydatetime()
-            )
+            price_rec[crypto] = pricedown.download_price(crypto, dtime.to_pydatetime())
         price_records.append(price_rec)
     public_prices = pd.DataFrame(price_records, index=sales.index)
     public_prices.columns = pd.MultiIndex.from_product(

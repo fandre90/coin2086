@@ -51,6 +51,7 @@ def load_reference_dataframes(trades_fname):
         "form_2086_notice.csv",
         "interleaved_trades.csv",
         "interleaved_multiyear_trades.csv",
+        "interleaved_exotics_trades.csv",
     ],
 )
 def test_trades_against_reference(trades_fname):
