@@ -5,7 +5,7 @@ Trades DataFrame
 ----------------
 Coin2086 functions take as input a pandas DataFrame of all your crypto-currency
 trades (purchase and sales). You should be able to download the history of your
-trades from your user porfile on the exchange you use (Bistamp, Coinbase, 
+trades from your user porfile on the exchange you use (Bistamp, Coinbase,
 Kraken etc.), however, you will need to adapt it so that it follows the format
 expected by coin2086.
 
@@ -18,12 +18,21 @@ expected by coin2086.
     your crypto-currency trades** since your bought your very crypto-currency,
     not just the trades for the last tax year.
 
-    In other words, before the first trade in the trades DataFrame, you should have 
-    been holding no crypto-currency. This is important to determine your 
-    portfolio purchase price, which is used in the computation of your profit 
-    and losses. If this is  not possible, you will have to use the 
+    In other words, before the first trade in the trades DataFrame, you should have
+    been holding no crypto-currency. This is important to determine your
+    portfolio purchase price, which is used in the computation of your profit
+    and losses. If this is  not possible, you will have to use the
     ``initial_porfolio`` argument.
 
+Trades Normalization
+--------------------
+Coin2086 provides helpers to help your normalize transaction histories downloaded
+from exchanges into the Trades DataFrame format expected by coin2086. Currently
+a trade normalisation function is provided for Bitstamp only, see
+:py:func:`coin2086.bitstamp.normalize_bitstamp_transactions`.
+
+If you write your own trade normalization function for another exchange,
+please submit a pull request.
 
 Initial Portfolio
 -----------------
@@ -43,7 +52,7 @@ respectively. Your intial portfolio is as follows:
     initial_porfolio = {'BTC': 1.0, 'ETH': 1.0}
     initial_purchase_price = 2400 + 290
     sales, total_pnl = coin2086.compute_taxable_pnls(
-        trades, 2020, initial_porfolio=initial_porfolio, 
+        trades, 2020, initial_porfolio=initial_porfolio,
         initial_purchase_price=initial_purchase_price)
     sales
 

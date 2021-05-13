@@ -20,6 +20,7 @@
    api/compute_taxable_pnls
    api/compute_taxable_pnls_detailed
    api/valuate_portfolio
+   api/bitstamp
 
 
 Indices and tables

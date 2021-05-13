@@ -1,5 +1,5 @@
-API Introduction
-================
+Advanced Usage
+==============
 
 The main entry point of coin2086 is :py:func:`coin2086.compute_taxable_pnls`
 that returns a DataFrame with all your sales for a given tax year, and the
@@ -18,9 +18,9 @@ may inspect the output of :py:func:`coin2086.compute_taxable_pnls_detailed`:
 .. thumbnail:: ../examples/interlead_multiyear_pnl_detailed.png
 
 To determine you PnL :py:func:`coin2086.compute_taxable_pnls_detailed` needs to
-compute the valuation of your portfolio before each sale. This is done by 
-calling the Bitstamp public API to obtain the publicly known prices of the 
-crypto-currencies you held at the moment of the sale. The function 
+compute the valuation of your portfolio before each sale. This is done by
+calling the Bitstamp public API to obtain the publicly known prices of the
+crypto-currencies you held at the moment of the sale. The function
 :py:func:`coin2086.valuate_portfolio` takes care of valuating your portfolio
 before each sale:
 

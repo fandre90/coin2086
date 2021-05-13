@@ -10,6 +10,27 @@ def split_column_get_unit(col):
 
 
 def normalize_bitstamp_transactions(trans, start_date):
+    """
+    Take a DataFrame of transactions as exported by Bitstamp, and
+    return a DataFrame of *normalized* trades, that can be used by the functions
+    of the public API of coin2086. Transactions exported from Bitstamp may include
+    deposits, withdrawals or other operations that are not used for the
+    computation of the PnL. These operations will be filtered out, and only
+    crypto-currencies purchase and sales will be kept.
+
+    Args:
+        trans (pandas.DataFrame): A DataFrame of transactions, as exported from your
+            Bitstamp profile. This is usually exported as csv from Bitstamp, and
+            read with `pandas.read_csv()`.
+        start_date(timestamp, str or datetime): The start date at which to
+            start parsing transations from. Transactions before start_date will
+            be ignored. This will be converted into a pandas datetime using
+            `pandas.to_datetime()`.
+
+    Returns:
+        pandas.DataFrame: A DataFrame of normalized crypto-currency buy and sell
+        trades, that can be used by coin2086 public API functions.
+    """
     # Select only trade (Market) transaction and ignore Deposits, Withdrawals etc.
     trades = trans[trans["Type"] == "Market"].copy()
     trades["datetime"] = pd.to_datetime(trades["Datetime"])

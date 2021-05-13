@@ -1,6 +1,6 @@
 .. warning::
     The ``trades`` must be sorted by increasing datetime, this can be achieved
-    as follows ``trades.sort_values('datetime').reset_index().drop(columns='index')``.
+    as follows ``trades.sort_values('datetime').reset_index(drop=True)``.
 
 The columns must follow the following specification:
 
