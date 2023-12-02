@@ -90,8 +90,7 @@ def unstack_portfolio_composition(trades, sales, initial_portfolio):
     portfolio = trades[["cryptocurrency", "quantity", "trade_side"]].copy()
     # Compute a signed quantity for each trade by multiplying by
     # -1 for sales and 1 for purchases
-    portfolio["sign"] = -1
-    portfolio.loc[portfolio["trade_side"] == "BUY", "sign"] = 1
+    portfolio["sign"] = portfolio["trade_side"].map({"BUY": 1, "SELL": -1})
     portfolio["quantity"] = portfolio["quantity"] * portfolio["sign"]
     portfolio = portfolio.drop(columns=["sign", "trade_side"])
     # Unstack the composition of the portofolio after each transaction
